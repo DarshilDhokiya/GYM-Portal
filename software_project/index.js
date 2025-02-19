@@ -15,6 +15,8 @@ const cookieParser = require('cookie-parser');
 const { log, error } = require('console')
 const nodemailer = require('nodemailer')
 require('dotenv').config();  
+const serverless = require('serverless-http');
+module.exports.handler = serverless(app);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
