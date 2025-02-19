@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Homepage - LBMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 font-sans">
+
+    <!-- Navbar -->
+    <nav class="bg-indigo-700 shadow-lg p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            
+            <!-- Logo -->
+            <a class="text-2xl font-bold text-white tracking-wide" href="#">LBMS</a>
+            
+            <!-- Mobile Menu Toggle -->
+            <input type="checkbox" id="menu-toggle" class="hidden peer">
+            <label for="menu-toggle" class="text-white cursor-pointer md:hidden">
+                <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </label>
+
+            <!-- Navigation Links -->
+            <div class="hidden md:flex items-center space-x-6">
+                <a class="text-white hover:text-indigo-200 font-medium transition" href="/report">Reports</a>
+                <a class="text-white hover:text-indigo-200 font-medium transition" href="/logout">Logout</a>
+                
+                <!-- Search Bar -->
+                <form action="/search" method="GET" class="relative">
+                    <input type="text" name="query" id="searchInput" placeholder="Search books..." 
+                        class="w-72 p-2 rounded-lg border focus:ring-2 focus:ring-indigo-400 focus:outline-none">
+                    <button type="submit" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-indigo-600">
+                        🔍
+                    </button>
+                </form>
+
+                <!-- Category Dropdown -->
+                <select id="categoryFilter" class="border rounded-lg px-4 py-2 bg-white text-gray-800 focus:ring-2 focus:ring-indigo-500 transition">
+                    <option selected value="">All Categories</option>
+                    <option value="Programming">Programming</option>
+                    <option value="Chemical Engineering">Chemical Engineering</option>
+                    <option value="Civil Engineering">Civil Engineering</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Literature">Literature</option>
+                </select>
+            </div>
+
+            <!-- Mobile Dropdown Menu -->
+            <div class="peer-checked:flex flex-col md:hidden absolute bg-indigo-700 text-white w-full top-16 left-0 p-5 space-y-4 shadow-lg rounded-lg">
+                <a class="hover:text-indigo-200 transition" href="/report">Reports</a>
+                <a class="hover:text-indigo-200 transition" href="/logout">Logout</a>
+                <form action="/search" method="GET" class="flex items-center space-x-2">
+                    <input type="text" name="query" placeholder="Search books..." class="p-2 rounded-lg w-full text-gray-800 focus:ring-2 focus:ring-indigo-500">
+                    <button type="submit" class="bg-indigo-600 text-white p-2 rounded-lg hover:bg-indigo-700 transition">
+                        Search
+                    </button>
+                </form>
+                <select id="categoryFilterMobile" class="border rounded-lg px-4 py-2 bg-white text-gray-800 focus:ring-2 focus:ring-indigo-500">
+                    <option selected value="">All Categories</option>
+                    <option value="Programming">Programming</option>
+                    <option value="Chemical Engineering">Chemical Engineering</option>
+                    <option value="Civil Engineering">Civil Engineering</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Literature">Literature</option>
+                </select>
+            </div>
+
+        </div>
+    </nav>  
+
+    <!-- Book Section -->
+    <div class="container mx-auto p-8">
+        <h3 class="text-3xl font-bold text-gray-800 mb-6 text-center">Available Books</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="bookContainer">
+            <% book.forEach(e => { %>
+                <div class="book-card bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all transform hover:scale-105 border border-gray-200"
+                    data-title="<%= e.booktitle.toLowerCase() %>" 
+                    data-author="<%= e.author.toLowerCase() %>" 
+                    data-category="<%= e.Category.toLowerCase() %>">
+                    
+                    <img src="<%= e.image %>" alt="Book Image" class="w-full h-48 object-contain rounded-lg mb-4 shadow-sm">
+                    <h5 class="text-xl font-semibold text-gray-900 mb-2 hover:text-red-600 transition">
+                        <%= e.booktitle %>
+                    </h5>
+                    <p class="text-gray-600 mt-2 text-base line-clamp-3"><%= e.description %></p>
+                    <p class="text-gray-500 mt-2 text-sm italic font-medium">Author: <%= e.author %></p>
+
+                    <div class="mt-4 flex justify-center">
+                        <form action="/book_request" method="post">
+                            <input type="hidden" name="booktitle" value="<%= e.booktitle %>">
+                            <input type="hidden" name="author" value="<%= e.author %>">
+                            <input type="hidden" name="Category" value="<%= e.Category %>">
+                            <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+                                Request
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+
+    <!-- JavaScript for Search & Filter -->
+    <script>
+        document.getElementById('searchInput').addEventListener('input', function () {
+            let filter = this.value.toLowerCase();
+            let books = document.querySelectorAll('.book-card');
+
+            books.forEach(book => {
+                let title = book.getAttribute('data-title');
+                let author = book.getAttribute('data-author');
+                let category = book.getAttribute('data-category');
+
+                if (title.includes(filter) || author.includes(filter) || category.includes(filter)) {
+                    book.style.display = "block";
+                } else {
+                    book.style.display = "none";
+                }
+            });
+        });
+
+        document.getElementById('categoryFilter').addEventListener('change', function () {
+            let filter = this.value.toLowerCase();
+            let books = document.querySelectorAll('.book-card');
+
+            books.forEach(book => {
+                let category = book.getAttribute('data-category');
+                if (filter === "" || category === filter) {
+                    book.style.display = "block";
+                } else {
+                    book.style.display = "none";
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
