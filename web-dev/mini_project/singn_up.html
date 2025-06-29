@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spotify Signup</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white h-screen flex items-center justify-center">
+  <div class="bg-gray-800 p-8 rounded-lg shadow-lg w-96">
+    <div class="text-center mb-6">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg" 
+           alt="Spotify Logo" 
+           class="w-32 mx-auto">
+    </div>
+    <h2 class="text-2xl font-bold text-center mb-6">Sign up for Spotify</h2>
+    <form>
+      <div class="mb-4">
+        <label for="email" class="block text-sm font-medium mb-2">What's your email?</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email"
+               class="w-full px-4 py-2 bg-gray-700 text-white rounded-lg border border-gray-600 focus:ring-2 focus:ring-green-500 focus:outline-none">
+      </div>
+      <div class="mb-4">
+        <label for="username" class="block text-sm font-medium mb-2">What should we call you?</label>
+        <input type="text" id="username" name="username" placeholder="Enter a username"
+               class="w-full px-4 py-2 bg-gray-700 text-white rounded-lg border border-gray-600 focus:ring-2 focus:ring-green-500 focus:outline-none">
+      </div>
+      <div class="mb-4">
+        <label for="password" class="block text-sm font-medium mb-2">Create a password</label>
+        <input type="password" id="password" name="password" placeholder="Create a password"
+               class="w-full px-4 py-2 bg-gray-700 text-white rounded-lg border border-gray-600 focus:ring-2 focus:ring-green-500 focus:outline-none">
+      </div>
+      <div class="mb-6">
+        <label for="dob" class="block text-sm font-medium mb-2">What's your date of birth?</label>
+        <input type="date" id="dob" name="dob"
+               class="w-full px-4 py-2 bg-gray-700 text-white rounded-lg border border-gray-600 focus:ring-2 focus:ring-green-500 focus:outline-none">
+      </div>
+      <button type="submit"
+              class="w-full bg-green-500 text-white font-medium py-2 px-4 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+        Sign Up
+      </button>
+    </form>
+    <p class="text-sm text-center mt-4">
+      Have an account? <a href="index.html" class="text-green-500 hover:underline">Log in</a>
+    </p>
+  </div>
+</body>
+</html>
