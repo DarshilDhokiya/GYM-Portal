@@ -1,0 +1,20 @@
+{
+  "name": "micro_project_awd",
+  "version": "1.0.0",
+  "description": "an awd micro project ",
+  "homepage": "https://github.com/DarshilDhokiya/GYM#readme",
+  "bugs": {
+    "url": "https://github.com/DarshilDhokiya/GYM/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DarshilDhokiya/GYM.git"
+  },
+  "license": "ISC",
+  "author": "Darshil",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
